@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import CheckConstraint, UniqueConstraint
 
 db= SQLAlchemy()
 
@@ -14,6 +15,9 @@ class Exercise(db.Model):
 
 class Workout(db.Model):
     __tablename__ = "workouts"
+    __table_args__ = (
+        CheckConstraint('duration_minutes > 0', name='check_workout_duration_positive'),
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
@@ -25,6 +29,13 @@ class Workout(db.Model):
 
 class WorkoutExercise(db.Model):
     __tablename__ = "workout_exercises"
+    # The constraints allow for any value provided to be positive, optional values remain null.
+    __table_args__ = (
+        CheckConstraint("reps > 0 OR reps IS NULL", name= "check_reps_positive"),
+        CheckConstraint("sets > 0 OR sets IS NULL", name= "check_sets_positive"),
+        CheckConstraint("duration_seconds > 0 OR duration_seconds IS NULL", name= "check_duration_seconds_positive"),
+        UniqueConstraint("workout_id", "exercise_id", name= "unique_exercise_per_workout"), # prevents the same exercise to be added to the same workout more than once.
+    )
 
     id = db.Column(db.Integer, primary_key=True)
     workout_id = db.Column(db.Integer, db.ForeignKey("workouts.id"), nullable=False)
