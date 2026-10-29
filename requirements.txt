@@ -9,6 +9,7 @@ Flask-Migrate==3.1.0
 Flask-SQLAlchemy==3.0.3
 importlib-metadata==6.0.0
 importlib-resources==5.10.0
+iniconfig==2.3.1
 ipdb==0.13.9
 ipython==9.17.1
 ipython_pygments_lexers==1.1.1
@@ -22,11 +23,13 @@ matplotlib-inline==0.2.2
 packaging==26.3
 parso==0.8.7
 pexpect==4.9.0
+pluggy==1.7.0
 prompt_toolkit==3.0.53
 psutil==7.2.2
 ptyprocess==0.7.0
 pure_eval==0.2.4
 Pygments==2.21.0
+pytest==9.2.0
 setuptools==84.2.1
 SQLAlchemy==2.1.6
 stack-data==0.6.3
